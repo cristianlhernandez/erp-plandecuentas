@@ -120,9 +120,9 @@ $(() => {
       sheet.getUsedRange().format.autofitColumns();
       sheet.getUsedRange().format.autofitRows();
       await context.sync();
+      form.option("formData", "");
     });
   });
-
   // Formulario Fin
 });
 
@@ -147,24 +147,24 @@ async function CargarDatos() {
 }
 
 const enviarRespuesta = async function (value) {
-  var result = true;
+  var dato = [];
   await Excel.run(async (context) => {
     let sheet = context.workbook.worksheets.getItem("Plan de Cuentas");
     let tabla = sheet.tables.getItem("plandecuentas");
     let bodyRange = tabla.columns.getItem("codigo").load("values");
     await context.sync();
-    var dato = bodyRange.values;
-    console.log(dato);
-    await context.sync();
-    result = dato.includes(value);
-    console.log(result);
+    dato = bodyRange.values;
   });
+  //var result = dato.includes(Number(value));
+  const buscar = dato.find((element) => element == value);
   //const codigo = objetoPC.findIndex((obj) => obj.codigo == value);
+  // eslint-disable-next-line no-undef
+  console.log(buscar);
   // eslint-disable-next-line no-undef
   const d = $.Deferred();
   // eslint-disable-next-line no-undef
   setTimeout(() => {
-    d.resolve(result === false);
+    d.resolve(value != buscar);
   }, 1000);
   return d.promise();
 };
