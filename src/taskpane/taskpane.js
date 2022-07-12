@@ -24,6 +24,18 @@ Office.onReady((info) => {
   });
 });
 
+// Data estructura.
+const cuenta = {
+  codigo: "",
+  R: "",
+  CNC: "",
+  SR: "",
+  C: "",
+  SC: "",
+  nombre: "",
+  descripcion: "",
+};
+
 // Formulario Inicio
 // eslint-disable-next-line no-undef
 $(() => {
@@ -92,40 +104,41 @@ $(() => {
   // eslint-disable-next-line no-undef
   $("#form-container").on("submit", async function (e) {
     e.preventDefault();
+    cuenta.R = cuenta.codigo.slice(0, 1);
+    cuenta.CNC = cuenta.codigo.slice(1, 2);
+    cuenta.SR = cuenta.codigo.slice(2, 4);
+    cuenta.C = cuenta.codigo.slice(4, 6);
+    cuenta.SC = cuenta.codigo.slice(6, 9);
+
+    let dato = [cuenta.codigo, cuenta.R, cuenta.CNC, cuenta.SR, cuenta.C, cuenta.SC, cuenta.nombre, cuenta.descripcion];
+
     await Excel.run(async (context) => {
       let sheet = context.workbook.worksheets.getItem("Plan de Cuentas");
       let tabla = sheet.tables.getItem("plandecuentas");
-      let codigoslice = cuenta.codigo;
-
-      cuenta.R = codigoslice.slice(0, 1);
-      cuenta.CNC = codigoslice.slice(1, 2);
-      cuenta.SR = codigoslice.slice(2, 4);
-      cuenta.C = codigoslice.slice(4, 6);
-      cuenta.SC = codigoslice.slice(6, 9);
-
-      let dato = [
-        cuenta.codigo,
-        cuenta.R,
-        cuenta.CNC,
-        cuenta.SR,
-        cuenta.C,
-        cuenta.SC,
-        cuenta.nombre,
-        cuenta.descripcion,
-      ];
 
       if (cuenta.codigo !== "") {
         tabla.rows.add(null, [dato], true);
       }
       sheet.getUsedRange().format.autofitColumns();
       sheet.getUsedRange().format.autofitRows();
+
       await context.sync();
-      form.option("formData", Newcuenta);
     });
+
+    cuenta.codigo = "";
+    cuenta.R = "";
+    cuenta.CNC = "";
+    cuenta.SR = "";
+    cuenta.C = "";
+    cuenta.SC = "";
+    cuenta.nombre = "";
+    cuenta.descripcion = "";
+    // eslint-disable-next-line no-const-assign
+    form.option("formData", cuenta);
   });
   // Formulario Fin
 });
-
+async function Guardar(dato) {}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // async function CargarDatos() {
 //   await Excel.run(async (context) => {
@@ -165,26 +178,4 @@ const enviarRespuesta = async function (value) {
     d.resolve(value != buscar);
   }, 1000);
   return d.promise();
-};
-// Data estructura.
-const cuenta = {
-  codigo: "",
-  R: "",
-  CNC: "",
-  SR: "",
-  C: "",
-  SC: "",
-  nombre: "",
-  descripcion: "",
-};
-
-const Newcuenta = {
-  codigo: "",
-  R: "",
-  CNC: "",
-  SR: "",
-  C: "",
-  SC: "",
-  nombre: "",
-  descripcion: "",
 };
