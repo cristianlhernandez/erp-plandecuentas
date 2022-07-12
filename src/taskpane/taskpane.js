@@ -162,7 +162,7 @@ const enviarRespuesta = async function (value) {
   const d = $.Deferred();
   // eslint-disable-next-line no-undef
   setTimeout(() => {
-    d.resolve(value === -1);
+    d.resolve(value === false);
   }, 1000);
   return d.promise();
 };
