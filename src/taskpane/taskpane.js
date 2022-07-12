@@ -148,7 +148,7 @@ async function CargarDatos() {
   });
 }
 
-const enviarRespuesta = function (value) {
+const enviarRespuesta = async function (value) {
   await Excel.run(async (context) => {
     let sheet = context.workbook.worksheets.getItem("Plan de Cuentas");
     let tabla = sheet.tables.getItem("plandecuentas");
