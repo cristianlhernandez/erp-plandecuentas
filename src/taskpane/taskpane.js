@@ -154,7 +154,7 @@ const enviarRespuesta = async function (value) {
     let tabla = sheet.tables.getItem("plandecuentas");
     let bodyRange = tabla.columns.getItem("codigo").load("values");
     await context.sync();
-    var result = bodyRange.include(value);
+    var result = bodyRange.includes(value);
     console.log(result);
   });
   //const codigo = objetoPC.findIndex((obj) => obj.codigo == value);
