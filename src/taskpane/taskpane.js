@@ -120,7 +120,7 @@ $(() => {
       sheet.getUsedRange().format.autofitColumns();
       sheet.getUsedRange().format.autofitRows();
       await context.sync();
-      form.option("formData", "");
+      form.option("formData", Newcuenta);
     });
   });
   // Formulario Fin
@@ -168,6 +168,17 @@ const enviarRespuesta = async function (value) {
 };
 // Data estructura.
 const cuenta = {
+  codigo: "",
+  R: "",
+  CNC: "",
+  SR: "",
+  C: "",
+  SC: "",
+  nombre: "",
+  descripcion: "",
+};
+
+const Newcuenta = {
   codigo: "",
   R: "",
   CNC: "",
