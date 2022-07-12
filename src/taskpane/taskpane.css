@@ -1,0 +1,18 @@
+.dx-viewport{
+    background-color: rgba(77, 77, 77, 1);
+}
+.options {
+    padding: 20px;
+    position: relative;
+    width: 250px;
+    background-color: rgba(42, 42, 42, 1);
+    margin: 10px 10px 30px;
+  }
+  .optionsText {
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    width: 250px;
+    background-color: rgba(42, 42, 42, 1);
+    margin: 10px 10px;
+  }
