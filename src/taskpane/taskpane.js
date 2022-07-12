@@ -149,12 +149,20 @@ async function CargarDatos() {
 }
 
 const enviarRespuesta = function (value) {
-  const codigo = objetoPC.findIndex((obj) => obj.codigo == value);
+  await Excel.run(async (context) => {
+    let sheet = context.workbook.worksheets.getItem("Plan de Cuentas");
+    let tabla = sheet.tables.getItem("plandecuentas");
+    let bodyRange = tabla.columns.getItem("codigo").load("values");
+    await context.sync();
+    var result = bodyRange.include(value);
+    console.log(result);
+  });
+  //const codigo = objetoPC.findIndex((obj) => obj.codigo == value);
   // eslint-disable-next-line no-undef
   const d = $.Deferred();
   // eslint-disable-next-line no-undef
   setTimeout(() => {
-    d.resolve(codigo === -1);
+    d.resolve(value === -1);
   }, 1000);
   return d.promise();
 };
