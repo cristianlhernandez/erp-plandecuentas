@@ -127,24 +127,23 @@ $(() => {
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-async function CargarDatos() {
-  await Excel.run(async (context) => {
-    let sheet = context.workbook.worksheets.getItem("Plan de Cuentas");
-    let tabla = sheet.tables.getItem("plandecuentas");
-    let bodyRange = tabla.getDataBodyRange().load("values");
-    await context.sync();
-    var bodyValues = bodyRange.values.map((value) => {
-      var obj = {};
-      obj.codigo = value[0];
-      obj.nombre = value[6];
-      obj.descripcion = value[7];
+// async function CargarDatos() {
+//   await Excel.run(async (context) => {
+//     let sheet = context.workbook.worksheets.getItem("Plan de Cuentas");
+//     let tabla = sheet.tables.getItem("plandecuentas");
+//     let bodyRange = tabla.getDataBodyRange().load("values");
+//     await context.sync();
+//     var bodyValues = bodyRange.values.map((value) => {
+//       var obj = {};
+//       obj.codigo = value[0];
+//       obj.nombre = value[6];
+//       obj.descripcion = value[7];
 
-      return obj;
-    });
-    objetoPC = bodyValues;
-    console.log(objetoPC);
-  });
-}
+//       return obj;
+//     });
+//     objetoPC = bodyValues;
+//   });
+// }
 
 const enviarRespuesta = async function (value) {
   var dato = [];
@@ -159,7 +158,6 @@ const enviarRespuesta = async function (value) {
   const buscar = dato.find((element) => element == value);
   //const codigo = objetoPC.findIndex((obj) => obj.codigo == value);
   // eslint-disable-next-line no-undef
-  console.log(buscar);
   // eslint-disable-next-line no-undef
   const d = $.Deferred();
   // eslint-disable-next-line no-undef
@@ -179,5 +177,3 @@ const cuenta = {
   nombre: "",
   descripcion: "",
 };
-
-var objetoPC = {};
