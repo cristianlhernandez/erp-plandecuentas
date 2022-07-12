@@ -19,8 +19,6 @@ Office.onReady((info) => {
         table.name = "plandecuentas";
         table.getHeaderRowRange().values = [["codigo", "R", "CNC", "SR", "C", "SC", "Nombre", "Descripcion"]];
         sheet.activate();
-      } else {
-        CargarDatos();
       }
     });
   });
@@ -122,13 +120,13 @@ $(() => {
       sheet.getUsedRange().format.autofitColumns();
       sheet.getUsedRange().format.autofitRows();
       await context.sync();
-      CargarDatos();
     });
   });
 
   // Formulario Fin
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function CargarDatos() {
   await Excel.run(async (context) => {
     let sheet = context.workbook.worksheets.getItem("Plan de Cuentas");
@@ -149,12 +147,16 @@ async function CargarDatos() {
 }
 
 const enviarRespuesta = async function (value) {
+  var result = true;
   await Excel.run(async (context) => {
     let sheet = context.workbook.worksheets.getItem("Plan de Cuentas");
     let tabla = sheet.tables.getItem("plandecuentas");
     let bodyRange = tabla.columns.getItem("codigo").load("values");
     await context.sync();
-    var result = bodyRange.includes(value);
+    var dato = bodyRange.values;
+    console.log(dato);
+    await context.sync();
+    result = dato.includes(value);
     console.log(result);
   });
   //const codigo = objetoPC.findIndex((obj) => obj.codigo == value);
@@ -162,7 +164,7 @@ const enviarRespuesta = async function (value) {
   const d = $.Deferred();
   // eslint-disable-next-line no-undef
   setTimeout(() => {
-    d.resolve(value === false);
+    d.resolve(result === false);
   }, 1000);
   return d.promise();
 };
