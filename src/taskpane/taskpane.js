@@ -3,6 +3,7 @@
  * See LICENSE in the project root for license information.
  */
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /* global console, document, Excel, Office */
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -138,7 +139,6 @@ $(() => {
   });
   // Formulario Fin
 });
-async function Guardar(dato) {}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // async function CargarDatos() {
 //   await Excel.run(async (context) => {
